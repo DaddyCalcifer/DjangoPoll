@@ -1,0 +1,12 @@
+{% extends 'survey/base.html' %}
+
+{% block content %}
+<h1 class="text-center mb-4">Музыкальные предпочтения</h1>
+<div class="list-group">
+    {% for question in questions %}
+        <a href="{{ question.id }}/" class="list-group-item list-group-item-action">
+            🎵 {{ question.text }}
+        </a>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'survey/base.html' %}
+
+{% block content %}
+<h1 class="text-center mb-4">{{ question.text }}</h1>
+<form action="{% url 'vote' question.id %}" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        {% for choice in question.choices.all %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="choice" value="{{ choice.id }}" id="choice{{ choice.id }}">
+                <label class="form-check-label" for="choice{{ choice.id }}">
+                    {{ choice.text }}
+                </label>
+            </div>
+        {% endfor %}
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Проголосовать</button>
+</form>
+
+{% if error_message %}
+    <div class="alert alert-danger mt-3">{{ error_message }}</div>
+{% endif %}
+
+<a href="/" class="btn btn-link mt-3">⬅️ Вернуться назад</a>
+{% endblock %}
