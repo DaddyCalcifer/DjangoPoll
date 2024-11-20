@@ -2,7 +2,7 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-
+from django.core.management import execute_from_command_line
 
 def main():
     """Run administrative tasks."""
@@ -18,5 +18,9 @@ def main():
     execute_from_command_line(sys.argv)
 
 
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "music_preferences.settings")
+    
+    # Получаем порт из окружения
+    port = os.environ.get("PORT", 8000)
+    execute_from_command_line(["manage.py", "runserver", f"0.0.0.0:{port}"])
