@@ -22,3 +22,26 @@ def vote(request, question_id):
         selected_choice.votes += 1
         selected_choice.save()
         return redirect('index')
+    
+def stats(request):
+    questions = Question.objects.all()
+    stats_data = []
+
+    for question in questions:
+        total_votes = sum(choice.votes for choice in question.choices.all())
+        choices_stats = [
+            {
+                'text': choice.text,
+                'votes': choice.votes,
+                'percentage': (choice.votes / total_votes * 100) if total_votes > 0 else 0,
+            }
+            for choice in question.choices.all()
+        ]
+        stats_data.append({
+            'question': question,
+            'total_votes': total_votes,
+            'choices': choices_stats,
+        })
+
+    return render(request, 'survey/stats.html', {'stats_data': stats_data})
+
