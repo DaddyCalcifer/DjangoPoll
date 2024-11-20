@@ -70,7 +70,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'music_preferences.wsgi.application'
 
-
+ALLOWED_HOSTS = ["*"]
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
